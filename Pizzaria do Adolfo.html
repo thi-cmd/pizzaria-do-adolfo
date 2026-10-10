@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pizzaria do Adolfo</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);
+--bg:#f7f7f7;--card:#fff;--tx:#3e3e3e;--mut:#717171;--red:#ea1d2c;--bd:#ebebeb;--soft:#fff0f1}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121212;--card:#1d1d1d;--tx:#f2f2f2;--mut:#a3a3a3;--bd:#2f2f2f;--soft:#2e1a1c}}
+:root[data-theme="dark"]{--bg:#121212;--card:#1d1d1d;--tx:#f2f2f2;--mut:#a3a3a3;--bd:#2f2f2f;--soft:#2e1a1c}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:calc(90px + env(safe-area-inset-bottom,0px))}
+button{font:inherit;cursor:pointer;border:0;color:inherit;background:none}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+header{background:var(--card);border-bottom:1px solid var(--bd);position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.logo{color:var(--red);font-weight:800;font-size:1.15rem;letter-spacing:-.5px}
+.login{border:1px solid var(--bd);border-radius:20px;padding:7px 14px;font-size:.85rem;font-weight:600}
+.hero{height:150px;border-radius:0 0 20px 20px;background:linear-gradient(135deg,#ea1d2c,#ff6b4a);display:grid;place-items:center;font-size:4.5rem;max-width:760px;margin:0 auto;letter-spacing:12px}
+.info{display:flex;gap:14px;align-items:center;margin:-34px 0 14px;position:relative}
+.avatar{width:72px;height:72px;border-radius:50%;background:var(--card);border:3px solid var(--card);display:grid;place-items:center;font-size:2.2rem;box-shadow:0 2px 8px rgba(0,0,0,.12);flex:none}
+.info h1{margin:34px 0 0;font-size:1.3rem}
+.meta{display:flex;flex-wrap:wrap;gap:6px 14px;color:var(--mut);font-size:.85rem;margin-bottom:6px}
+.meta b{color:#1ba35b}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px}
+.chip{white-space:nowrap;padding:8px 14px;border-radius:20px;background:var(--card);border:1px solid var(--bd);font-size:.85rem}
+.chip.on{background:var(--red);color:#fff;border-color:var(--red)}
+h2{font-size:1.05rem;margin:14px 0 10px}
+.item{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:center;margin-bottom:10px}
+.item .t{flex:1;min-width:0}
+.item strong{display:block;margin-bottom:3px}
+.item p{margin:0 0 8px;color:var(--mut);font-size:.82rem;line-height:1.35}
+.price{font-weight:600;font-size:.95rem}
+.pic{position:relative;flex:none}
+.pic .e{width:92px;height:92px;border-radius:12px;background:var(--soft);display:grid;place-items:center;font-size:2.8rem}
+.plus{position:absolute;right:-6px;bottom:-6px;width:34px;height:34px;border-radius:50%;background:var(--card);box-shadow:0 2px 6px rgba(0,0,0,.2);color:var(--red);font-size:1.4rem;font-weight:700;line-height:1}
+.badge{position:absolute;left:-6px;top:-6px;background:var(--red);color:#fff;font-size:.72rem;font-weight:700;border-radius:10px;padding:2px 7px}
+.new{border:1.5px dashed var(--red);background:var(--card);border-radius:14px;padding:14px;margin-top:6px}
+.new h3{margin:0 0 8px;font-size:.95rem;color:var(--red)}
+input{width:100%;padding:11px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit;margin-bottom:8px}
+.primary{background:var(--red);color:#fff;font-weight:700;border-radius:10px;padding:12px 16px;width:100%}
+.bar{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:1px solid var(--bd);display:none;z-index:6}
+.bar.on{display:block}
+.bar button{max-width:728px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center;z-index:10}
+.ov.on{display:flex}
+.sheet{background:var(--card);width:100%;max-width:520px;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px))}
+@media(min-width:600px){.ov{align-items:center}.sheet{border-radius:20px}}
+.sheet h3{margin:0 0 10px;font-size:1.1rem}
+.row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--bd);gap:8px;font-size:.92rem}
+.step{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--bd);border-radius:20px;padding:2px 10px}
+.step button{color:var(--red);font-weight:700;font-size:1.1rem}
+.sum{display:flex;justify-content:space-between;color:var(--mut);font-size:.9rem;padding:4px 0}
+.sum.t{color:var(--tx);font-weight:700;font-size:1.05rem}
+.pay{display:flex;align-items:center;gap:10px;border:1.5px solid var(--bd);border-radius:12px;padding:12px;margin:8px 0;cursor:pointer}
+.pay:has(input:checked){border-color:var(--red);background:var(--soft)}
+.pay input{width:auto;margin:0;accent-color:var(--red)}
+.mut{color:var(--mut);font-size:.8rem}
+.center{text-align:center}
+.big{font-size:5rem;line-height:1.1}
+.x{float:right;font-size:1.3rem;color:var(--mut)}
+</style>
+</head>
+<body>
+<header><div class="wrap"><span class="logo">🍕 pizzaria do adolfo</span><button class="login" id="lb" onclick="loginClick()">Entrar</button></div></header>
+<div class="hero">🍕🧀🌶️</div>
+<div class="wrap">
+  <div class="info"><div class="avatar">🍕</div><h1>Pizzaria do Adolfo</h1></div>
+  <div class="meta"><span>⭐ 4,8</span><span>Pizza</span><span>30–40 min</span><b>Entrega R$ 5,00</b></div>
+  <div class="chips"><span class="chip on">Pizzas</span><span class="chip">Novo sabor</span></div>
+  <h2>Pizzas</h2>
+  <div id="menu"></div>
+  <div class="new">
+    <h3>➕ Adicionar sabor novo</h3>
+    <input id="nn" placeholder="Nome do sabor">
+    <input id="ni" placeholder="Ingredientes">
+    <input id="np" type="number" step="0.01" min="1" placeholder="Preço (R$)" value="45">
+    <button class="primary" onclick="addFlavor()">Adicionar ao cardápio</button>
+  </div>
+</div>
+
+<div class="bar" id="bar"><button class="primary" onclick="openOv('oc')"><span id="bc">Ver sacola</span><span id="bt"></span></button></div>
+
+<div class="ov" id="oc" onclick="if(event.target===this)closeOv('oc')"><div class="sheet">
+  <button class="x" onclick="closeOv('oc')">✕</button>
+  <h3>Sua sacola</h3>
+  <div id="cl"></div>
+  <div class="sum"><span>Subtotal</span><span id="st"></span></div>
+  <div class="sum"><span>Taxa de entrega</span><span>R$ 5,00</span></div>
+  <div class="sum t"><span>Total</span><span id="tt"></span></div>
+  <h3 style="margin-top:16px">Pagamento</h3>
+  <label class="pay"><input type="radio" name="pay" value="Pix" checked> 💠 Pix</label>
+  <label class="pay"><input type="radio" name="pay" value="Dinheiro"> 💵 Dinheiro</label>
+  <label class="pay"><input type="radio" name="pay" value="Cartão"> 💳 Cartão</label>
+  <button class="primary" style="margin-top:8px" onclick="finish()">Finalizar compra</button>
+</div></div>
+
+<div class="ov" id="ol" onclick="if(event.target===this)closeOv('ol')"><div class="sheet">
+  <button class="x" onclick="closeOv('ol')">✕</button>
+  <h3>Entrar</h3>
+  <input id="em" type="email" placeholder="E-mail">
+  <input id="pw" type="password" placeholder="Senha">
+  <button class="primary" onclick="doLogin()">Entrar</button>
+  <p class="mut">Login de demonstração: a senha não é salva nem enviada.</p>
+</div></div>
+
+<div class="ov" id="oe" onclick="if(event.target===this)closeOv('oe')"><div class="sheet center">
+  <div class="big">🖕</div>
+  <h3>Vai comer pizza na cadeia kkkkkk</h3>
+  <p class="mut" id="ei"></p>
+  <button class="primary" onclick="closeOv('oe')">Fechar</button>
+</div></div>
+
+<script>
+var menu=[
+ {n:"Calabresa",i:"Calabresa fatiada, cebola, mussarela e orégano.",p:42,e:"🍕"},
+ {n:"Pantaneira",i:"Carne seca, mussarela, cebola e banana-da-terra.",p:52,e:"🥩"},
+ {n:"4 Queijos",i:"Mussarela, provolone, parmesão e gorgonzola.",p:49,e:"🧀"}
+];
+var cart={},user=null,FEE=5;
+try{user=localStorage.getItem("adolfo_user")}catch(e){}
+function $(id){return document.getElementById(id)}
+function brl(v){return "R$ "+v.toFixed(2).replace(".",",")}
+function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+function openOv(id){$(id).classList.add("on")}
+function closeOv(id){$(id).classList.remove("on")}
+function renderMenu(){
+ $("menu").innerHTML=menu.map(function(m,k){
+  return '<div class="item"><div class="t"><strong>'+esc(m.n)+'</strong><p>'+esc(m.i)+'</p><span class="price">'+brl(m.p)+'</span></div><div class="pic"><div class="e">'+m.e+'</div>'+(cart[k]?'<span class="badge">'+cart[k]+'</span>':'')+'<button class="plus" onclick="chg('+k+',1)">+</button></div></div>'}).join("")}
+function chg(k,d){cart[k]=(cart[k]||0)+d;if(cart[k]<=0)delete cart[k];render()}
+function render(){
+ var keys=Object.keys(cart),n=0,s=0;
+ keys.forEach(function(k){n+=cart[k];s+=menu[k].p*cart[k]});
+ renderMenu();
+ $("bar").classList.toggle("on",n>0);
+ $("bc").textContent="Ver sacola • "+n+(n>1?" itens":" item");
+ $("bt").textContent=brl(s+FEE);
+ $("st").textContent=brl(s);$("tt").textContent=brl(s+(n?FEE:0));
+ $("cl").innerHTML=keys.length?keys.map(function(k){
+  return '<div class="row"><span>'+esc(menu[k].n)+'</span><span class="step"><button onclick="chg('+k+',-1)">−</button>'+cart[k]+'<button onclick="chg('+k+',1)">+</button></span><span>'+brl(menu[k].p*cart[k])+'</span></div>'}).join(""):'<p class="mut">Sua sacola está vazia.</p>';
+ if(!n)closeOv("oc")}
+function addFlavor(){
+ var n=$("nn").value.trim(),p=parseFloat($("np").value);
+ if(!n||!(p>0)){alert("Coloque o nome e um preço válido.");return}
+ menu.push({n:n,i:$("ni").value.trim()||"Sabor da casa.",p:p,e:"🍕"});
+ $("nn").value="";$("ni").value="";render()}
+function loginClick(){
+ if(user){user=null;try{localStorage.removeItem("adolfo_user")}catch(e){}upd();return}
+ openOv("ol")}
+function doLogin(){
+ var e=$("em").value.trim();
+ if(e.indexOf("@")<1||!$("pw").value){alert("Preencha e-mail e senha.");return}
+ user=e;try{localStorage.setItem("adolfo_user",e)}catch(x){}
+ $("pw").value="";closeOv("ol");upd()}
+function upd(){$("lb").textContent=user?"Sair ("+user.split("@")[0]+")":"Entrar"}
+function finish(){
+ var p=document.querySelector("input[name=pay]:checked").value;
+ $("ei").textContent="Pagamento: "+p+" • Total: "+$("tt").textContent;
+ closeOv("oc");openOv("oe")}
+render();upd();
+</script>
+</body>
+</html>
